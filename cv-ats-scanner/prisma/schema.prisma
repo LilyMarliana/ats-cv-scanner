@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model JDTemplate {
+  id           String   @id @default(uuid())
+  positionName String
+  jdText       String   @db.Text
+  isPreset     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  matchResults CvMatchResult[]
+
+  @@map("jd_templates")
+}
+
+model CvUpload {
+  id                String   @id @default(uuid())
+  filename          String
+  originalName      String
+  extractedText     String   @db.Text
+  wordCount         Int
+  isLikelyFailed    Boolean  @default(false)
+  layoutWarning     String?  @db.Text
+  createdAt         DateTime @default(now())
+
+  matchResults CvMatchResult[]
+
+  @@map("cv_uploads")
+}
+
+model CvMatchResult {
+  id             String   @id @default(uuid())
+  cvUploadId     String
+  jdTemplateId   String
+  overallScore   Int
+  requiredScore  Int
+  preferredScore Int
+  createdAt      DateTime @default(now())
+
+  cvUpload   CvUpload   @relation(fields: [cvUploadId], references: [id], onDelete: Cascade)
+  jdTemplate JDTemplate @relation(fields: [jdTemplateId], references: [id], onDelete: Cascade)
+
+  @@map("cv_match_results")
+}

@@ -1,0 +1,22 @@
+node_modules
+dist
+*.tsbuildinfo
+*.js.map
+*.d.ts.map
+
+# Keep environment variables out of version control
+.env
+.env.*
+!.env.example
+
+# DATA PRIBADI: CV yang diunggah
+uploads/
+
+/src/generated/prisma
+
+# File hasil kompilasi nyasar
+prisma/*.js
+prisma/*.d.ts
+prisma.config.js
+prisma.config.d.ts
+tests/*.d.ts

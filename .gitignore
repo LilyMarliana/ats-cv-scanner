@@ -1,0 +1,38 @@
+# Dependensi dan hasil build
+node_modules/
+dist/
+*.tsbuildinfo
+*.js.map
+*.d.ts.map
+
+# Rahasia dan konfigurasi lokal
+.env
+.env.*
+!.env.example
+
+# DATA PRIBADI: CV yang diunggah
+uploads/
+
+# Prisma client hasil generate (tiap anggota menjalankan: npx prisma generate)
+cv-ats-scanner/src/generated/
+
+# File hasil kompilasi nyasar
+cv-ats-scanner/prisma/*.js
+cv-ats-scanner/prisma/*.d.ts
+cv-ats-scanner/prisma.config.js
+cv-ats-scanner/prisma.config.d.ts
+cv-ats-scanner/tests/*.d.ts
+
+# Data Science: dataset, notebook, dan model (bagikan lewat Drive, bukan git)
+DATASET ATS/
+*.ipynb
+__pycache__/
+.ipynb_checkpoints/
+*.pkl
+*.csv
+ner_model_final/
+
+# Sistem
+.DS_Store
+Thumbs.db
+*.log

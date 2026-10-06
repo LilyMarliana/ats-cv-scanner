@@ -1,0 +1,233 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #39423d;
+  --color-navy-light: #65716a;
+
+  --color-gold: #a98268;
+
+  --color-page-bg: #f6f5f1;
+  --color-surface: #ffffff;
+  --color-border-subtle: #e5e4de;
+
+  --color-text-secondary: #747872;
+
+  --color-success: #5f806c;
+  --color-success-bg: #eef4f0;
+
+  --color-warning: #a88455;
+  --color-warning-bg: #f7f2e9;
+
+  --color-error: #a86d68;
+  --color-error-bg: #f8efed;
+}
+
+:root {
+  font-size: 20px;
+
+  --app-bg: #f6f5f1;
+  --app-surface: #ffffff;
+  --app-border: #e5e4de;
+  --app-text: #39423d;
+  --app-muted: #747872;
+  --app-accent: #a98268;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at 85% 0%,
+      rgba(169, 130, 104, 0.07),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 0% 30%,
+      rgba(95, 128, 108, 0.05),
+      transparent 28%
+    ),
+    var(--app-bg);
+
+  color: var(--app-text);
+
+  font-family:
+    Inter,
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(169, 130, 104, 0.18);
+  color: #39423d;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d5d4cd;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bcbdb5;
+}
+
+/* --------------------------------
+   Global subtle motion
+-------------------------------- */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.45s ease-out both;
+}
+
+.animate-soft-pulse {
+  animation: soft-pulse 2s ease-in-out infinite;
+}
+
+/* --------------------------------
+   Reusable visual helpers
+-------------------------------- */
+
+.app-card {
+  background: var(--app-surface);
+  border: 1px solid var(--app-border);
+  border-radius: 16px;
+  box-shadow:
+    0 1px 2px rgba(57, 66, 61, 0.025),
+    0 8px 30px rgba(57, 66, 61, 0.035);
+}
+
+.app-card-hover {
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.app-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(57, 66, 61, 0.18);
+  box-shadow:
+    0 2px 4px rgba(57, 66, 61, 0.035),
+    0 14px 36px rgba(57, 66, 61, 0.07);
+}
+
+.soft-button {
+  transition:
+    transform 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.soft-button:hover {
+  transform: translateY(-1px);
+}
+
+.soft-button:active {
+  transform: translateY(0);
+}
+
+/* --------------------------------
+   Focus
+-------------------------------- */
+
+input:focus,
+textarea:focus,
+select:focus {
+  box-shadow: 0 0 0 3px rgba(169, 130, 104, 0.09);
+}
+
+/* --------------------------------
+   Responsive
+-------------------------------- */
+
+@media (max-width: 900px) {
+  :root {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    font-size: 17px;
+  }
+
+  body {
+    background:
+      radial-gradient(
+        circle at 100% 0%,
+        rgba(169, 130, 104, 0.06),
+        transparent 35%
+      ),
+      var(--app-bg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

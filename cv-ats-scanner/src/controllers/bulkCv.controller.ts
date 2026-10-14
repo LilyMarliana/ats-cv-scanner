@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 import type { BulkUploadResponse } from '../types/bulkCv.types';
 import { classifySingleCV } from '../services/bulkClassifier.service';
+import { removeUploadedFile } from '../utils/fileCleanup';
 
 export const bulkUploadCV = async (req: Request, res: Response<BulkUploadResponse>) => {
   const files = req.files as Express.Multer.File[] | undefined;
@@ -31,6 +32,9 @@ export const bulkUploadCV = async (req: Request, res: Response<BulkUploadRespons
         allScores: [],
         topMissingKeywords: [],
       });
+    } finally {
+      // Teks sudah diekstrak (dan disimpan ke riwayat), file asli tidak dipakai lagi.
+      await removeUploadedFile(file.path);
     }
   }
 

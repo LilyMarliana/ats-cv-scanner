@@ -3,6 +3,7 @@ import type { UploadResponse } from '../types/cv.types';
 import { extractTextFromFile } from '../services/extractText.service';
 import { detectSections, analyzeLayoutQuality } from '../services/sectionDetector.service';
 import { analyzeCvQuality } from '../services/cvQuality.service';
+import { removeUploadedFile } from '../utils/fileCleanup';
 
 export const uploadCV = async (req: Request, res: Response<UploadResponse>) => {
   if (!req.file) {
@@ -12,9 +13,11 @@ export const uploadCV = async (req: Request, res: Response<UploadResponse>) => {
     });
   }
 
+  const filePath = req.file.path;
+
   try {
     const { text, rawTextWithLines, wordCount, isLikelyFailed } = await extractTextFromFile(
-      req.file.path
+      filePath
     );
     const sections = detectSections(rawTextWithLines);
     const layoutAnalysis = analyzeLayoutQuality(sections);
@@ -56,5 +59,8 @@ export const uploadCV = async (req: Request, res: Response<UploadResponse>) => {
       success: false,
       message: `Gagal mengekstrak teks: ${error instanceof Error ? error.message : 'Unknown error'}`,
     });
+  } finally {
+    // Teks sudah diekstrak, file asli tidak dipakai lagi. Hapus demi privasi pengguna.
+    await removeUploadedFile(filePath);
   }
 };

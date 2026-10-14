@@ -7,7 +7,6 @@ import {
   CheckCircle2,
   AlertTriangle,
   Briefcase,
-  GraduationCap,
   Sparkles,
   Brain,
   Target,
